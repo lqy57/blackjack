@@ -18,6 +18,10 @@ let pDiff = 0;
 let dDiff = 0;
 let hitButton = document.querySelector('#hit');
 let standButton = document.querySelector('#stand');
+let showDealerHand = false;
+hitButton.disabled = true;
+standButton.disabled = true;
+
 /*----- cached element references -----*/
 const shuffledContainer = document.getElementById('shuffled-deck-container');
 const pWCounter = document.getElementById('pWins');
@@ -35,6 +39,7 @@ document.querySelector('#stand').addEventListener('click', dealerTurn);
 function renderDealedHands() {
     hitButton.disabled = false;
     standButton.disabled = false;
+    showDealerHand = false;
     // reset hand
     playerHand = []; 
     dealerHand = [];
@@ -57,9 +62,16 @@ function updateHand() {
 
     dHand.innerHTML = '';
     let dContainer = '';
-    dealerHand.forEach(function(card) {
+    dContainer += `<div class="card ${dealerHand[0].face}"></div>`;
+    dContainer += `<div class="card back"></div>`; 
+
+    if(showDealerHand) {
+        dContainer = '';
+        dealerHand.forEach(function(card) {
         dContainer += `<div class="card ${card.face}"></div>`;
-    });
+        });
+    }
+
     dHand.innerHTML = dContainer;
 }
 
@@ -77,6 +89,8 @@ function hitDealerHand() {
 }
 
 function dealerTurn() {
+    showDealerHand = true;
+    updateHand()
     // dealer logic 
     // hit if player score is closer to 21 than dealer score
     while(dValue < 17) {
@@ -137,7 +151,7 @@ function compareHands(compare) {
                 pWins++;
                 hitButton.disabled = true;
                 standButton.disabled = true;
-            } else if(pDiff == 0) {
+            } else if(dDiff == 0) {
                 console.log("Blackjack! Dealer Wins!")
                 dWins++;
                 hitButton.disabled = true;
