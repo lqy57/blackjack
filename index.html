@@ -10,6 +10,9 @@
     <title>Blackjack</title>
 </head>
 <body>
+
+    
+
     <h1>Blackjack</h1>
 
     <div id="win-modal" class="modal">
@@ -18,26 +21,34 @@
             <p id="modal-text">Player Wins!</p>
         </div> 
     </div>
+    
+    <div id="gameboard">
+        
+        <div id="text">
 
-    <h3>Dealer Hand:</h3>
-    <section id="dHand"></section>
-    <h3 id="dWins">Dealer Wins: </h3>
+            <h3 id="dealer">Dealer Hand:</h3>
+            <section id="dHand"></section>
+            <h3 id="dWins">Dealer Wins: </h3>
 
-    <br></br>
+            <br></br>
 
-    <h3>Player Hand:</h3>
-    <section id="pHand"></section>
-    <h3 id="pWins">Player Wins: </h3>
+            <h3 id="player">Player Hand:</h3>
+            <section id="pHand"></section>
+            <h3 id="pWins">Player Wins: </h3>
 
-    <button id="hit">Hit</button>
-    <button id="stand">Stand</button>
-    <button id="new-hand">New Hand</button>
+            <button id="hit">Hit</button>
+            <button id="stand">Stand</button>
+            <button id="new-hand">New Hand</button>
 
-    <h3>Master Deck</h3>
-    <section id="master-deck-container" class="card-container"></section>
-    <h3>Shuffled Deck</h3>
-    <section id="shuffled-deck-container" class="card-container">
-    </section>
+            <!-- <h3>Master Deck</h3> -->
+            <section id="master-deck-container" class="card-container"></section>
+            <!-- <h3>Shuffled Deck</h3> -->
+            <section id="shuffled-deck-container" class="card-container">
+            </section>
+
+        </div>
+
+    </div>
 
 </body>
 </html>

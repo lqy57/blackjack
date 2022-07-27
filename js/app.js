@@ -16,9 +16,9 @@ let pValue = 0;
 let dValue = 0; 
 let pDiff = 0;
 let dDiff = 0;
+let showDealerHand = false;
 let hitButton = document.querySelector('#hit');
 let standButton = document.querySelector('#stand');
-let showDealerHand = false;
 hitButton.disabled = true;
 standButton.disabled = true;
 
@@ -26,6 +26,8 @@ standButton.disabled = true;
 const shuffledContainer = document.getElementById('shuffled-deck-container');
 const pWCounter = document.getElementById('pWins');
 const dWCounter = document.getElementById('dWins');
+const player = document.getElementById('player');
+const dealer = document.getElementById('dealer');
 const pHand = document.getElementById('pHand');
 const dHand = document.getElementById('dHand');
 const modalEl = document.getElementById('win-modal')
@@ -40,9 +42,16 @@ document.querySelector('#stand').addEventListener('click', dealerTurn);
 
 /*----- functions -----*/
 function renderDealedHands() {
+    // show buttons and variables after starting game/new hand
     hitButton.disabled = false;
     standButton.disabled = false;
     showDealerHand = false;
+    player.style.display = "block";
+    pWCounter.style.display = "block";
+    dealer.style.display = "block";
+    dWCounter.style.display = "block";
+    hitButton.style.display = "block";
+    standButton.style.display = "block";
     // reset hand
     playerHand = []; 
     dealerHand = [];
@@ -56,6 +65,7 @@ function renderDealedHands() {
 }
 
 function updateHand() {
+    // updates the view and cards for each hand
     pHand.innerHTML = '';
     let pContainer = '';
     playerHand.forEach(function(card) {
@@ -86,6 +96,7 @@ function hitPlayerHand() {
 }
 
 function hitDealerHand() {
+    // deal new card to dealer
     dealerHand.push(shuffledDeck.shift());
     updateHand();
     compareHands('C');
@@ -99,14 +110,10 @@ function dealerTurn() {
     while(dValue < 17) {
         hitDealerHand();
     } 
+    // stand if dealer score is btw 17 and 21
     if(dValue >= 17 && dValue < 21) {
         compareHands('D');
     }
-    // while(dValue <= 8) {
-    //     hitDealerHand();
-    // } if(dValue >= 17) {
-    //     compareHands('D');
-    // }
 }
 
 function compareHands(compare) {
@@ -201,10 +208,6 @@ function compareHands(compare) {
     dWCounter.innerText = `Dealer Wins: ${dWins}`;
 }
 
-spanEl.onclick = function() {
-    modalEl.style.display = "none";
-}
-
 function getNewShuffledDeck() {
   // Create a copy of the masterDeck (leave masterDeck untouched!)
   const tempDeck = [...masterDeck];
@@ -235,7 +238,7 @@ function renderDeckInContainer(deck, container) {
   // const cardsHtml = deck.reduce(function(html, card) {
   //   return html + `<div class="card ${card.face}"></div>`;
   // }, '');
-  container.innerHTML = cardsHtml;
+  // container.innerHTML = cardsHtml;
 }
 
 function buildMasterDeck() {
@@ -255,3 +258,16 @@ function buildMasterDeck() {
 }
 
 renderNewShuffledDeck();
+
+player.style.display = "none";
+pWCounter.style.display = "none";
+dealer.style.display = "none";
+dWCounter.style.display = "none";
+hitButton.style.display = "none";
+standButton.style.display = "none";
+
+// Closes popup after win/loss
+spanEl.onclick = function() {
+    modalEl.style.display = "none";
+}
+
