@@ -28,6 +28,9 @@ const pWCounter = document.getElementById('pWins');
 const dWCounter = document.getElementById('dWins');
 const pHand = document.getElementById('pHand');
 const dHand = document.getElementById('dHand');
+const modalEl = document.getElementById('win-modal')
+const modalTextEl = document.getElementById('modal-text');
+const spanEl = document.getElementsByClassName('close')[0];
 
 /*----- event listeners -----*/
 document.querySelector('#new-hand').addEventListener('click', renderNewShuffledDeck);
@@ -121,12 +124,16 @@ function compareHands(compare) {
     switch(comparison) {
         case 'A': 
             if(pDiff == 0) {
-                console.log("Blackjack! Player Wins!")
+                console.log("Blackjack! Player Wins!");
+                modalTextEl.innerText = "Blackjack! Player Wins!";
+                modalEl.style.display = "block";
                 pWins++;
                 hitButton.disabled = true;
                 standButton.disabled = true;
             } else if(dDiff == 0) {
-                console.log("Blackjack! Dealer Wins!")
+                console.log("Blackjack! Dealer Wins!");
+                modalTextEl.innerText = "Blackjack! Dealer Wins!"
+                modalEl.style.display = "block";
                 dWins++;
                 hitButton.disabled = true;
                 standButton.disabled = true;
@@ -134,13 +141,17 @@ function compareHands(compare) {
             break;
         case 'B':
             if(pDiff < 0) {
-                console.log("Player Busts! Dealer Wins!")
-                dWins++
+                console.log("Player Busts! Dealer Wins!");
+                modalTextEl.innerText = "Player Busts! Dealer Wins!";
+                modalEl.style.display = "block";
+                dWins++;
                 hitButton.disabled = true;
                 standButton.disabled = true;
             } else if(pDiff == 0) {
                 console.log("Blackjack! Player Wins!")
-                pWins++
+                modalTextEl.innerText = "Blackjack! Player Wins!";
+                modalEl.style.display = "block";
+                pWins++;
                 hitButton.disabled = true;
                 standButton.disabled = true;
             }
@@ -148,11 +159,15 @@ function compareHands(compare) {
         case 'C': 
             if(dDiff < 0) {
                 console.log("Dealer Busts! Player Wins!")
+                modalTextEl.innerText = "Dealer Busts! Player Wins!"
+                modalEl.style.display = "block";
                 pWins++;
                 hitButton.disabled = true;
                 standButton.disabled = true;
             } else if(dDiff == 0) {
                 console.log("Blackjack! Dealer Wins!")
+                modalTextEl.innerText = "Blackjack! Dealer Wins!";
+                modalEl.style.display = "block";
                 dWins++;
                 hitButton.disabled = true;
                 standButton.disabled = true;
@@ -161,15 +176,21 @@ function compareHands(compare) {
         case 'D':
             if(pDiff == dDiff) {
                 console.log("It's a tie!");
+                modalTextEl.innerText = "It's a tie!";
+                modalEl.style.display = "block";
                 hitButton.disabled = true;
                 standButton.disabled = true;
             } else if(pDiff < dDiff) {
                 console.log("Player Wins!");
+                modalTextEl.innerText = "Player Wins!";
+                modalEl.style.display = "block";
                 pWins++;
                 hitButton.disabled = true;
                 standButton.disabled = true;
             } else {
                 console.log("Dealer Wins!");
+                modalTextEl.innerText = "Dealer Wins!";
+                modalEl.style.display = "block";
                 dWins++;
                 hitButton.disabled = true;
                 standButton.disabled = true;
@@ -178,6 +199,10 @@ function compareHands(compare) {
     }   
     pWCounter.innerText = `Player Wins: ${pWins}`;
     dWCounter.innerText = `Dealer Wins: ${dWins}`;
+}
+
+spanEl.onclick = function() {
+    modalEl.style.display = "none";
 }
 
 function getNewShuffledDeck() {
