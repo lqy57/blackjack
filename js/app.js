@@ -39,6 +39,7 @@ document.querySelector('#new-hand').addEventListener('click', renderNewShuffledD
 document.querySelector('#new-hand').addEventListener('click', renderDealedHands);
 document.querySelector('#hit').addEventListener('click', hitPlayerHand);
 document.querySelector('#stand').addEventListener('click', dealerTurn);
+document.querySelector('#reset').addEventListener('click', resetGame);
 
 /*----- functions -----*/
 function renderDealedHands() {
@@ -131,14 +132,12 @@ function compareHands(compare) {
     switch(comparison) {
         case 'A': 
             if(pDiff == 0) {
-                console.log("Blackjack! Player Wins!");
                 modalTextEl.innerText = "Blackjack! Player Wins!";
                 modalEl.style.display = "block";
                 pWins++;
                 hitButton.disabled = true;
                 standButton.disabled = true;
             } else if(dDiff == 0) {
-                console.log("Blackjack! Dealer Wins!");
                 modalTextEl.innerText = "Blackjack! Dealer Wins!"
                 modalEl.style.display = "block";
                 dWins++;
@@ -148,14 +147,12 @@ function compareHands(compare) {
             break;
         case 'B':
             if(pDiff < 0) {
-                console.log("Player Busts! Dealer Wins!");
                 modalTextEl.innerText = "Player Busts! Dealer Wins!";
                 modalEl.style.display = "block";
                 dWins++;
                 hitButton.disabled = true;
                 standButton.disabled = true;
             } else if(pDiff == 0) {
-                console.log("Blackjack! Player Wins!")
                 modalTextEl.innerText = "Blackjack! Player Wins!";
                 modalEl.style.display = "block";
                 pWins++;
@@ -165,14 +162,12 @@ function compareHands(compare) {
             break;
         case 'C': 
             if(dDiff < 0) {
-                console.log("Dealer Busts! Player Wins!")
                 modalTextEl.innerText = "Dealer Busts! Player Wins!"
                 modalEl.style.display = "block";
                 pWins++;
                 hitButton.disabled = true;
                 standButton.disabled = true;
             } else if(dDiff == 0) {
-                console.log("Blackjack! Dealer Wins!")
                 modalTextEl.innerText = "Blackjack! Dealer Wins!";
                 modalEl.style.display = "block";
                 dWins++;
@@ -182,20 +177,17 @@ function compareHands(compare) {
             break;
         case 'D':
             if(pDiff == dDiff) {
-                console.log("It's a tie!");
                 modalTextEl.innerText = "It's a tie!";
                 modalEl.style.display = "block";
                 hitButton.disabled = true;
                 standButton.disabled = true;
             } else if(pDiff < dDiff) {
-                console.log("Player Wins!");
                 modalTextEl.innerText = "Player Wins!";
                 modalEl.style.display = "block";
                 pWins++;
                 hitButton.disabled = true;
                 standButton.disabled = true;
             } else {
-                console.log("Dealer Wins!");
                 modalTextEl.innerText = "Dealer Wins!";
                 modalEl.style.display = "block";
                 dWins++;
@@ -229,16 +221,11 @@ function renderNewShuffledDeck() {
 
 function renderDeckInContainer(deck, container) {
   container.innerHTML = '';
-  // Let's build the cards as a string of HTML
+  // build the cards as a string of HTML
   let cardsHtml = '';
   deck.forEach(function(card) {
     cardsHtml += `<div class="card ${card.face}"></div>`;
   });
-  // Or, use reduce to 'reduce' the array into a single thing - in this case a string of HTML markup 
-  // const cardsHtml = deck.reduce(function(html, card) {
-  //   return html + `<div class="card ${card.face}"></div>`;
-  // }, '');
-  // container.innerHTML = cardsHtml;
 }
 
 function buildMasterDeck() {
@@ -255,6 +242,10 @@ function buildMasterDeck() {
     });
   });
   return deck;
+}
+
+function resetGame() {
+    location.reload();
 }
 
 renderNewShuffledDeck();
