@@ -18,7 +18,7 @@ Getting Started:
 4. To restart the game and the win/loss counters, press the restart game button
 
 Next Steps:
-Multiple planned future enhancements and features
+Planned future enhancements and features
 1. Adding money to place bets will allow for multiple new features for a more realistic casino blackjack
 2. Splitting Pairs
 3. Doubling Down
